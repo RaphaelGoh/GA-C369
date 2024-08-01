@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F8DE7E;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #FFEB99;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            font-size: 48px;
+            color: #3D2B1F;
+            background-color: white;
+            border-radius: 25px;
+            display: inline-block;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+        }
+        .balance {
+            font-size: 48px;
+            color: #3D2B1F;
+        }
+        button {
+            background-color: #1E90FF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 20px;
+            width: 100%;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1C86EE;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the updated balance from localStorage
+            var updatedBalance = localStorage.getItem('updatedBalance');
+            // Display the updated balance if it exists
+            if (updatedBalance) {
+                document.getElementById('current_balance').textContent = `$${parseFloat(updatedBalance).toFixed(2)}`;
+            }
+        });
+
+        // Function to navigate to another page
+        function navigateToPage(page) {
+            window.location.href = page;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Balance</h1>
+        <div class="balance" id="current_balance">$0.00</div>
+        <button type="button" onclick="navigateToPage('sub2.html')">Buy a Subscription</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F8DE7E;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #FFEB99;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            font-size: 48px;
+            color: #3D2B1F;
+            background-color: white;
+            border-radius: 25px;
+            display: inline-block;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+        }
+        .balance {
+            font-size: 48px;
+            color: #3D2B1F;
+        }
+        label {
+            display: block;
+            font-size: 16px;
+            color: #3D2B1F;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #CCC;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #1E90FF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 20px;
+            width: 100%;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1C86EE;
+        }
+    </style>
+    <script>
+        function completePayment() {
+            var topupAmount = parseFloat(document.getElementById('topup_amount').value);
+            if (isNaN(topupAmount) || topupAmount <= 0) {
+                alert("Please enter a valid positive number for the top-up amount.");
+                return;
+            }
+            var currentBalance = parseFloat(sessionStorage.getItem('updatedBalance') || '0');
+            if (isNaN(currentBalance)) {
+                currentBalance = 0;
+            }
+            var newBalance = currentBalance + topupAmount;
+            sessionStorage.setItem('updatedBalance', newBalance.toFixed(2));
+            sessionStorage.setItem('topupAmount', topupAmount.toFixed(2));
+            window.location.href = 'payn.html';
+        }
+
+        function buySubscription() {
+            window.location.href = 'sub2.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var balance = parseFloat(sessionStorage.getItem('updatedBalance') || '0');
+            if (isNaN(balance)) {
+                balance = 0;
+            }
+            document.getElementById('current_balance').textContent = `$${balance.toFixed(2)}`;
+
+            // Clear input fields
+            document.getElementById('payment_method').value = '';
+            document.getElementById('topup_amount').value = '';
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Balance</h1>
+        <div class="balance" id="current_balance">$0.00</div>
+        <form>
+            <label for="payment_method">Payment method:</label>
+            <input type="text" id="payment_method" name="payment_method" required>
+            
+            <label for="topup_amount">Top-up amount:</label>
+            <input type="text" id="topup_amount" name="topup_amount" required>
+            
+            <button type="button" onclick="completePayment()">Complete Now</button>
+            <button type="button" onclick="buySubscription()">Buy Subscription</button>
+        </form>
+    </div>
+</body>
+</html>
